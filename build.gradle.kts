@@ -4,18 +4,19 @@ description = "Microservices Application Skeleton"
 
 plugins {
     id("org.springframework.boot") version "3.1.5"
-    id("io.spring.dependency-management") version "1.1.3"
+    id("io.spring.dependency-management") version "1.1.4"
+    id("com.github.node-gradle.node") version "7.0.1"
     kotlin("jvm") version "1.8.22"
     kotlin("plugin.spring") version "1.8.22"
 }
 
-allprojects {
+configure(allprojects) {
     group = "ru.fromiva.app"
     version = "0.0.1-SNAPSHOT"
     repositories { mavenCentral() }
 }
 
-subprojects {
+configure(subprojects - project("spa")) {
     apply(plugin = "org.springframework.boot")
     apply(plugin = "io.spring.dependency-management")
     apply(plugin = "kotlin")
@@ -44,4 +45,19 @@ subprojects {
     }
 }
 
-tasks.bootJar.configure { enabled = false }
+project("spa") {
+    apply(plugin = "com.github.node-gradle.node")
+
+    node {
+        version = "20.9.0"
+        npmVersion = "10.1.0"
+        download = true
+    }
+
+    tasks.register<Delete>("clean") {
+        delete("dist")
+    }
+}
+
+tasks["clean"].dependsOn(project(":spa").tasks["clean"])
+configure(tasks) { enabled = false }
