@@ -1,3 +1,3 @@
 rootProject.name = "app"
 
-include("gateway", "client", "spa")
+include("gateway", "registry", "client", "spa")

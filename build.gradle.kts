@@ -24,8 +24,15 @@ configure(subprojects - project("spa")) {
     java { sourceCompatibility = JavaVersion.VERSION_17 }
     extra["springCloudVersion"] = "2022.0.4"
 
+    dependencyManagement {
+        imports {
+            mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
+        }
+    }
+
     dependencies {
         implementation("org.jetbrains.kotlin:kotlin-reflect")
+        implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
         testImplementation("org.springframework.boot:spring-boot-starter-test")
     }
 
@@ -38,7 +45,9 @@ configure(subprojects - project("spa")) {
 
     tasks.withType<Test> {
         useJUnitPlatform()
+        systemProperty("eureka.client.enabled", "false")
     }
+
 
     tasks.bootBuildImage {
         builder.set("paketobuildpacks/builder-jammy-base:latest")
