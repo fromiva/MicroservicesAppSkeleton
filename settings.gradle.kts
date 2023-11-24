@@ -1,3 +1,6 @@
-rootProject.name = "app"
+rootProject.name = "MicroservicesAppSkeleto"
 
-include("gateway", "registry", "client", "spa")
+include("frontend:client")
+include("backend:client")
+include("backend:gateway")
+include("backend:registry")
