@@ -1,0 +1,2 @@
+server.port: 0
+eureka.instance.instance-id: ${spring.cloud.client.hostname}:${spring.application.name}:port-${server.port}:id-${random.int(999)}

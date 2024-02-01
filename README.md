@@ -21,7 +21,9 @@ of the original SPA.
 all the external HTTP requests
 - `registry` - a Spring Cloud based service registry to register and share
 information about running backend services. It implements the Service Discovery
-pattern.
+pattern
+- `config` - a Spring Cloud based configuration server to implement
+centralized configuration across application.
 
 A typical usage scenario of this skeleton is to develop your own microservices
 applications on top of it.

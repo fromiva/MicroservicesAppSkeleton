@@ -1,0 +1,13 @@
+server.port: 8080
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: service-users
+          uri: lb://service-users
+          predicates:
+            - Path=/api/users/**
+        - id: client-web-spa
+          uri: lb://client-web-spa
+          predicates:
+            - Path=/**

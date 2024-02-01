@@ -1,16 +1,3 @@
-server.port: 8080
-spring.application.name: app-gateway
-eureka.client.serviceUrl:
-  defaultZone: http://localhost:8761/eureka/
 spring:
-  cloud:
-    gateway:
-      routes:
-        - id: app-service-users
-          uri: lb://app-service-users
-          predicates:
-            - Path=/api/users/**
-        - id: app-client-web
-          uri: lb://app-client-web
-          predicates:
-            - Path=/**
+  application.name: gateway
+  config.import: 'optional:configserver:'

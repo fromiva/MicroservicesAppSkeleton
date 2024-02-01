@@ -1,12 +1,10 @@
-package com.example.app.users
+package com.example.app.config
 
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-@Disabled
-class UserApplicationTests {
+class ConfigApplicationTests {
 
 	@Test
 	fun contextLoads() { }

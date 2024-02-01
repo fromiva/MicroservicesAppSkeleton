@@ -1,0 +1,9 @@
+server.port: 8888
+spring:
+  application.name: config
+  profiles.active: native  # for file-based configuration storage
+  cloud.config.server.native.searchLocations: classpath:/config
+eureka.client.serviceUrl:
+  defaultZone: http://localhost:8761/eureka/
+logging.level:
+  org.springframework.cloud: trace

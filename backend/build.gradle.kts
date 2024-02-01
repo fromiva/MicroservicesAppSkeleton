@@ -48,4 +48,13 @@ configure(subprojects) {
     rootProject.tasks["clean"].dependsOn(tasks["clean"])
 }
 
+configure(subprojects
+        - project(":backend:registry")
+        - project(":backend:config")) {
+
+    dependencies {
+        implementation("org.springframework.cloud:spring-cloud-starter-config")
+    }
+}
+
 configure(tasks) { enabled = false }
