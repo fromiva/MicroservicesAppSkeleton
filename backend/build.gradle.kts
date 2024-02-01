@@ -1,11 +1,11 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "3.1.5"
+    id("org.springframework.boot") version "3.2.2"
     id("io.spring.dependency-management") version "1.1.4"
-    kotlin("jvm") version "1.9.20"
-    kotlin("plugin.spring") version "1.9.20"
-    kotlin("plugin.jpa") version "1.9.20"
+    kotlin("jvm") version "1.9.22"
+    kotlin("plugin.spring") version "1.9.22"
+    kotlin("plugin.jpa") version "1.9.22"
 }
 
 configure(subprojects) {
@@ -13,8 +13,8 @@ configure(subprojects) {
     apply(plugin = "io.spring.dependency-management")
     apply(plugin = "kotlin")
 
-    java { sourceCompatibility = JavaVersion.VERSION_17 }
-    extra["springCloudVersion"] = "2022.0.4"
+    java { sourceCompatibility = JavaVersion.VERSION_21 }
+    extra["springCloudVersion"] = "2023.0.0"
 
     dependencyManagement {
         imports {
@@ -31,7 +31,7 @@ configure(subprojects) {
     tasks.withType<KotlinCompile> {
         kotlinOptions {
             freeCompilerArgs += "-Xjsr305=strict"
-            jvmTarget = "17"
+            jvmTarget = "21"
         }
     }
 
