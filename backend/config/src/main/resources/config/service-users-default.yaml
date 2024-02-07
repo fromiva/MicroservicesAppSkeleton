@@ -1,3 +1,8 @@
-server.port: 0
+server.port: 9000
 eureka.instance.instance-id: ${spring.cloud.client.hostname}:${spring.application.name}:port-${server.port}:id-${random.int(999)}
-spring.liquibase.enabled: false
+spring.datasource:
+    url: 'jdbc:h2:mem:oauth;MODE=PostgreSQL;CASE_INSENSITIVE_IDENTIFIERS=TRUE;DB_CLOSE_DELAY=-1'
+    generate-unique-name: false
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver

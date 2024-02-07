@@ -1,0 +1,108 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: fromiva (Sergei Ivanov)
+      changes:
+        - createTable:
+            tableName: USERS
+            columns:
+              - column:
+                  name: ID
+                  type: BIGINT
+                  autoIncrement: true
+                  startWith: 1
+                  incrementBy: 1
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: USERNAME
+                  type: VARCHAR(256)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: PASSWORD
+                  type: VARCHAR(256)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: ROLE
+                  type: VARCHAR(32)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: ENABLED
+                  type: BOOLEAN
+                  constraints:
+                    nullable: false
+              - column:
+                  name: LOCKED
+                  type: BOOLEAN
+                  constraints:
+                    nullable: false
+              - column:
+                  name: CREATED
+                  type: TIMESTAMP(6) WITHOUT TIME ZONE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: UPDATED
+                  type: TIMESTAMP(6) WITHOUT TIME ZONE
+                  constraints:
+                    nullable: true
+              - column:
+                  name: EXPIRED
+                  type: TIMESTAMP(6) WITHOUT TIME ZONE
+                  constraints:
+                    nullable: true
+              - column:
+                  name: NAME_PREFIX
+                  type: VARCHAR(32)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: FIRST_NAME
+                  type: VARCHAR(64)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: MIDDLE_NAME
+                  type: VARCHAR(64)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: LAST_NAME
+                  type: VARCHAR(64)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: NAME_SUFFIX
+                  type: VARCHAR(32)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: TITLE
+                  type: VARCHAR(64)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: EMAIL
+                  type: VARCHAR(256)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: AVATAR
+                  type: VARCHAR(256)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: TIMEZONE
+                  type: VARCHAR(64)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: LOCALE
+                  type: VARCHAR(64)
+                  constraints:
+                    nullable: true
