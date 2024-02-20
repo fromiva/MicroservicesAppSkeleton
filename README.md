@@ -10,7 +10,7 @@ Consists of backend and frontend parts and contains the following subprojects:
 
 **Frontend**
 
-- [`client`](./frontend/client/README.md) - a single-page Angular-based client web-application
+- `client` [&#128279;](./frontend/client/README.md) - a single-page Angular-based client web-application
 
 **Backend**
 
@@ -24,6 +24,8 @@ information about running backend services. It implements the Service Discovery
 pattern
 - `config` - a Spring Cloud based configuration server to implement
 centralized configuration across application.
+- `users` [&#128279;](./backend/users/README.md) - Spring Authorization Server based service
+for centralized application wide authentication, authorization and user management
 
 A typical usage scenario of this skeleton is to develop your own microservices
 applications on top of it.

@@ -1,0 +1,4 @@
+app.security.issuer: "http://localhost:8080"
+spring.h2.console.enabled: true
+logging.level:
+  org.springframework.security: trace
