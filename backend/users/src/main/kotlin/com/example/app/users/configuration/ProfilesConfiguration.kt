@@ -10,12 +10,19 @@ import org.springframework.context.annotation.Profile
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher
 import org.springframework.security.web.util.matcher.OrRequestMatcher
+import org.springframework.web.cors.CorsConfiguration
+import org.springframework.web.cors.CorsConfigurationSource
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 
 @Configuration
 open class ProfilesConfiguration {
 
+    companion object {
+        private const val devProfile: String = "dev"
+    }
+
     @Bean
-    @Profile("dev")
+    @Profile(devProfile)
     open fun createStubUsers(repository: UserRepository): CommandLineRunner {
         return CommandLineRunner { args ->
             if (repository.count() < 1) {
@@ -28,7 +35,7 @@ open class ProfilesConfiguration {
     }
 
     @Bean
-    @Profile("dev")
+    @Profile(devProfile)
     open fun webSecurityCustomizer(): WebSecurityCustomizer {
         return WebSecurityCustomizer { webSecurity ->
             webSecurity.ignoring().requestMatchers(
@@ -39,5 +46,18 @@ open class ProfilesConfiguration {
                 )
             )
         }
+    }
+
+    @Bean
+    @Profile(devProfile)
+    open fun corsConfigurationSource(): CorsConfigurationSource {
+        val source = UrlBasedCorsConfigurationSource()
+        val config = CorsConfiguration()
+        config.addAllowedHeader("*")
+        config.addAllowedMethod("*")
+        config.addAllowedOrigin("http://localhost:4200")
+        config.allowCredentials = true
+        source.registerCorsConfiguration("/**", config)
+        return source
     }
 }
