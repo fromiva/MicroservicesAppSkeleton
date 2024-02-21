@@ -8,6 +8,6 @@ spring:
           predicates:
             - Path=/api/users/**,/oauth2/**,/connect/*,/login,/userinfo
         - id: client-web-spa
-          uri: http://localhost:4200
+          uri: http://client:80
           predicates:
             - Path=/**
