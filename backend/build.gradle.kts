@@ -54,7 +54,7 @@ configure(subprojects) {
         builder.set("paketobuildpacks/builder-jammy-base:latest")
     }
 
-    rootProject.tasks["clean"].dependsOn(tasks["clean"])
+    rootProject.tasks["bootJar"].dependsOn(tasks["bootJar"])
 }
 
 configure(subprojects
