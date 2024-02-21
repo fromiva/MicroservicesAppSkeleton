@@ -1,0 +1,87 @@
+version: "3.9"
+services:
+
+  client:
+    build:
+      context: ./frontend/client
+      target: client
+    container_name: client
+    ports:
+      - "4200:80"
+    restart: always
+
+  registry:
+    build:
+      context: ./backend
+      target: registry
+    environment:
+      - LOGGING_LEVEL_ROOT=INFO
+    healthcheck:
+      test: curl --fail --silent localhost:8761/actuator/health | grep UP || exit 1
+      interval: 5s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    container_name: registry
+    ports:
+      - "8761:8761"
+    restart: always
+
+  config:
+    build:
+      context: ./backend
+      target: config
+    environment:
+      - LOGGING_LEVEL_ROOT=INFO
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://registry:8761/eureka/
+    healthcheck:
+      test: curl --fail --silent localhost:8888/actuator/health | grep UP || exit 1
+      interval: 5s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    container_name: config
+    ports:
+      - "8888:8888"
+    restart: always
+    depends_on:
+      registry:
+        condition: service_healthy
+
+  users:
+    build:
+      context: ./backend
+      target: users
+    environment:
+      - LOGGING_LEVEL_ROOT=INFO
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://registry:8761/eureka/
+      - SPRING_CONFIG_IMPORT=optional:configserver:http://config:8888
+    container_name: users
+    ports:
+      - "9000:9000"
+    restart: always
+    depends_on:
+      registry:
+        condition: service_healthy
+      config:
+        condition: service_healthy
+
+  gateway:
+    build:
+      context: ./backend
+      target: gateway
+    environment:
+      - LOGGING_LEVEL_ROOT=INFO
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://registry:8761/eureka/
+      - SPRING_CONFIG_IMPORT=optional:configserver:http://config:8888
+    container_name: gateway
+    ports:
+      - "8080:8080"
+    restart: always
+    depends_on:
+      registry:
+        condition: service_healthy
+      config:
+        condition: service_healthy
+      client:
+        condition: service_started
