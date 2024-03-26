@@ -1,0 +1,3 @@
+spring:
+  application.name: service-messages
+  config.import: 'optional:configserver:'

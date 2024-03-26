@@ -1,0 +1,10 @@
+server.port: 0
+eureka.instance.instance-id: ${spring.cloud.client.hostname}:${spring.application.name}:port-${server.port}:id-${random.int(999)}
+spring:
+    datasource:
+        url: 'jdbc:h2:mem:messages;MODE=PostgreSQL;CASE_INSENSITIVE_IDENTIFIERS=TRUE;DB_CLOSE_DELAY=-1'
+        generate-unique-name: false
+        username: sa
+        password:
+        driver-class-name: org.h2.Driver
+    liquibase.enabled: false
