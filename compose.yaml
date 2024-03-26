@@ -66,6 +66,24 @@ services:
       config:
         condition: service_healthy
 
+  messages:
+    build:
+      context: ./backend
+      target: messages
+    environment:
+      - LOGGING_LEVEL_ROOT=INFO
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://registry:8761/eureka/
+      - SPRING_CONFIG_IMPORT=optional:configserver:http://config:8888
+    container_name: messages
+    ports:
+      - "8081:8081"
+    restart: always
+    depends_on:
+      registry:
+        condition: service_healthy
+      config:
+        condition: service_healthy
+
   gateway:
     build:
       context: ./backend

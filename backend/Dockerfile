@@ -14,6 +14,7 @@ COPY config/build.gradle.kts ./config/
 COPY gateway/build.gradle.kts ./gateway/
 COPY registry/build.gradle.kts ./registry/
 COPY users/build.gradle.kts ./users/
+COPY messages/build.gradle.kts ./messages/
 RUN ["./gradlew", "dependencies", "--no-daemon"]
 
 COPY . .
@@ -52,3 +53,10 @@ FROM jre AS users
 WORKDIR /app
 COPY --from=build /app/users/build/libs/users-0.0.1-SNAPSHOT.jar users.jar
 ENTRYPOINT ["java", "-jar", "users.jar"]
+
+
+# users service
+FROM jre AS messages
+WORKDIR /app
+COPY --from=build /app/messages/build/libs/messages-0.0.1-SNAPSHOT.jar messages.jar
+ENTRYPOINT ["java", "-jar", "messages.jar"]
