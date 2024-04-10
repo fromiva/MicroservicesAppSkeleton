@@ -1,5 +1,6 @@
 package com.example.app.users
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Table
 import java.time.Instant
@@ -12,7 +13,7 @@ data class User (
     @Id
     var id: Long?,
     var username: String,
-    var password: String,
+    @JsonIgnore var password: String,
     var role: UserRole,
     var enabled: Boolean,
     var locked: Boolean,
